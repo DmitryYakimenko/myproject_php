@@ -1,0 +1,24 @@
+<?php foreach($data['pages'] as $page_data) { ?>
+
+    <div class="cont" id="cont">
+        <div class="title">
+            <h3><a href="/pages/view/<?=$page_data['alias']?>"><?=$page_data['title']?></a></h3>
+        </div>
+        <figure>
+            <img src="/img/sample.png">
+        </figure>
+        <div class="prediction">
+            Каждый веб-разработчик знает, что такое текст-«рыба». Текст этот, несмотря на название,
+            не имеет никакого отношения к обитателям водоемов. Используется он веб-дизайнерами для
+            вставки на интернет-страницы и демонстрации внешнего вида контента, просмотра шрифтов,
+
+        </div>
+        <div class="bay">
+            <div class="price">
+                <b>100 грн</b>
+            </div>
+            <input type="button" value="Купить">
+        </div>
+    </div>
+
+<?php } ?>

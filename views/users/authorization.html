@@ -1,0 +1,21 @@
+<?php if( (App::getRouter()->getAction()==='registration') || !is_null(Session::get('user')) )
+{}else{
+?>
+<h2>Log IN</h2>
+<form name="authorization" method="post" action="http://<?=$_SERVER['HTTP_HOST']?>/users/authorization">
+    <input type="text" name="email" placeholder="e-mail"><br>
+    <input type="password" name="password" placeholder="password"><br>
+    Запомнить :<input type="checkbox" name="remember" >
+    <input type="submit" name="login" value="войти"><br>
+    <a href="http://<?=$_SERVER['HTTP_HOST']?>/users/registration">Зарегестрироватся</a>
+</form>
+
+<?php }
+			?>
+<?php if( !is_null(Session::get('user')) ) {?>
+<h2>Log IN</h2>
+<p>
+    Привет, <a href="http://<?=$_SERVER['HTTP_HOST']?>/users/view/<?=Session::get('user')['id']?>"><?=Session::get('user')['surname']." ".Session::get('user')['username']?></a>
+<p><strong><a href="http://<?=$_SERVER['HTTP_HOST']?>/users/log_out" >Выйти</a></strong></p>
+</p>
+<?php }?>

@@ -1,0 +1,8 @@
+<form method="post">
+    Ведите новый <?=$data['name']?>:<input name="<?=App::getRouter()->getParams()[0]?>" type="text"></br>
+    <?php if( isset($data['flag']) ) {?>
+    Повторите свой новый пароль:<input name="r-password" type="text"></br>
+    <?php } ?>
+    Ведите свой пароль: <input name="old-password" type="text" placeholder="Пароль"></br>
+    <input name="edit_btn" type="submit" value="Изменить">
+</form>
