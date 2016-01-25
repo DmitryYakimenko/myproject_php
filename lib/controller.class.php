@@ -32,6 +32,9 @@ class Controller{
     public function __construct($data = array()){
         $this->data = $data;
         $this->params = App::getRouter()->getParams();
+
+        $this->model['menu'] = new Menu();
+        $this->data['menus'] = $this->model['menu']->getList();
     }
 
 }

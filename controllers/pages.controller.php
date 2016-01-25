@@ -4,11 +4,11 @@ class PagesController extends Controller{
 
     public function __construct($data = array()){
         parent::__construct($data);
-        $this->model = new Page();
+        $this->model['page'] = new Page();
     }
 
     public function index(){
-        $this->data['pages'] = $this->model->getList(true);
+        $this->data['pages'] = $this->model['page']->getList(true);
     }
 
     public function view(){
@@ -16,7 +16,7 @@ class PagesController extends Controller{
 
         if ( isset($params[0]) ){
             $alias = strtolower($params[0]);
-            $this->data['page'] = $this->model->getByAlias($alias);
+            $this->data['page'] = $this->model['page']->getByAlias($alias);
         }
     }
 

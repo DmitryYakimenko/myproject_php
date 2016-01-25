@@ -36,9 +36,8 @@ class App{
             // Controller's action may return a view path
             $view_path = $controller_object->$controller_method();
 
-            $menu = new MenusController();
-            $menu->index();
-            $view_object = new View($menu->getData() , VIEWS_PATH.DS."menu.html");
+
+            $view_object = new View($controller_object->getData()['menus'] , VIEWS_PATH.DS."menu.html");
             $content['menu'] = $view_object->render();
 
             $view_object = new View(null , VIEWS_PATH.DS."/users/authorization.html");
