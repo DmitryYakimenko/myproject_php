@@ -1,0 +1,19 @@
+<?php foreach($data as $good_data) { ?>
+<div class="cont" id="cont">
+    <div class="title">
+        <h3><a href="/goods/view/<?=$good_data['type_name_eu']?>/<?=$good_data['good_id']?>"><?=$good_data['good_name']?></a></h3>
+    </div>
+    <figure>
+        <img src="/img/sample.png">
+    </figure>
+    <div class="prediction">
+        <?=$good_data['prediction']?>
+    </div>
+    <div class="bay">
+        <div class="price">
+            <b><?=$good_data['price']?> грн</b>
+        </div>
+        <input type="button" value="Купить">
+    </div>
+</div>
+<?php } ?>
