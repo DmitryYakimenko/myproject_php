@@ -1,8 +1,9 @@
-<?php foreach($data['pages'] as $page_data) { ?>
-
-    <div class="cont" id="cont">
+<h1><?=$data['page_title']?></h1>
+<p><?=$data['page_content']?></p>
+<!--
+  <div class="cont" id="cont">
         <div class="title">
-            <h3><a href="/pages/view/<?=$page_data['alias']?>"><?=$page_data['title']?></a></h3>
+            <h3><a href="/pages/view/<?=$data['pages']['page_title']?>"><?=$data['pages']['content']?></a></h3>
         </div>
         <figure>
             <img src="/img/sample.png">
@@ -20,5 +21,5 @@
             <input type="button" value="Купить">
         </div>
     </div>
+-->
 
-<?php } ?>

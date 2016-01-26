@@ -22,6 +22,7 @@ class App{
 
         $controller_class = ucfirst(self::$router->getController()).'Controller';
         $controller_method = strtolower(self::$router->getMethodPrefix().self::$router->getAction());
+        $controller_name = self::$router->getController();
 
         $layout = self::$router->getRoute();
         if ( $layout == 'admin' && Session::get('role') != 'admin' ){
@@ -40,12 +41,15 @@ class App{
             $view_object = new View($controller_object->getData()['menus'] , VIEWS_PATH.DS."menu.html");
             $content['menu'] = $view_object->render();
 
-            $view_object = new View(null , VIEWS_PATH.DS."/users/authorization.html");
+
+            $view_object = new View(null , VIEWS_PATH.DS."users/authorization.html");
             $content['authorization'] = $view_object->render();
 
 
-            $view_object = new View($controller_object->getData(), $view_path);
-            $content['content'] = $view_object->render();
+            $view_object = new View($controller_object->getData()["$controller_name"] , $view_path);
+            $content['main_content'] = $view_object->render();
+            //var_dump($controller_object->getData());die;
+
         } else {
             throw new Exception('Method '.$controller_method.' of class '.$controller_class.' does not exist.');
         }

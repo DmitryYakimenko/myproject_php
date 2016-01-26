@@ -144,7 +144,7 @@ class UsersController extends Controller{
                     }
                     if( !Session::hasFlash() ){
                         $user['email'] = $_POST['email'];
-                        if( $this->model->save($user, Session::get('user')['id']) ){
+                        if( $this->model->save($user, Session::get('user')['customer_id']) ){
                             Session::set('user', $user);
                             Router::redirect('');
                             Session::setFlash('OK');
@@ -170,7 +170,7 @@ class UsersController extends Controller{
                     }
                     if( !Session::hasFlash() ){
                         $user['phone'] = $_POST['phone'];
-                        if( $this->model->save($user, Session::get('user')['id']) ){
+                        if( $this->model->save($user, Session::get('user')['customer_id']) ){
                             Session::set('user', $user);
                             Router::redirect('');
                             Session::setFlash('OK');
@@ -196,7 +196,7 @@ class UsersController extends Controller{
                     if( !Session::hasFlash() ){
                         $password = md5(Config::get('salt').$_POST['password']);
                         $user['password'] = $password;
-                        if( $this->model->save($user, Session::get('user')['id']) ){
+                        if( $this->model->save($user, Session::get('user')['customer_id']) ){
                             Session::set('user', $user);
                             Router::redirect('');
                             Session::setFlash('OK');

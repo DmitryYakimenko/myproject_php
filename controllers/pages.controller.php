@@ -8,15 +8,15 @@ class PagesController extends Controller{
     }
 
     public function index(){
-        $this->data['pages'] = $this->model['page']->getList(true);
+        $this->data['pages'] = $this->model['page']->getByTitle("index");
     }
 
     public function view(){
         $params = App::getRouter()->getParams();
 
         if ( isset($params[0]) ){
-            $alias = strtolower($params[0]);
-            $this->data['page'] = $this->model['page']->getByAlias($alias);
+            $title = strtolower($params[0]);
+            $this->data['pages'] = $this->model['page']->getByTitle($title);
         }
     }
 
