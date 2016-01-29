@@ -1,0 +1,49 @@
+<form method="post" enctype="multipart/form-data">
+    <input name="good_type_id" value="<?=$data['attributes'][0]['good_type_id']?>" type="hidden">
+    <table>
+        <tr>
+            <td>Название:</td>
+            <td>
+                <input name="good_name" type="text" maxlength="100">
+            </td>
+        </tr>
+        <tr>
+            <td>Цена:</td>
+            <td>
+                <input name="price" type="text" maxlength="35">
+            </td>
+        </tr>
+        <tr>
+            <td>Описание:</td>
+            <td>
+                <textarea name="description"></textarea>
+            </td>
+        </tr>
+        <tr>
+            <td>Картинка:</td>
+            <td>
+                <input name="image" type="FILE" accept="image/jpeg">
+            </td>
+        </tr>
+        <?php foreach($data['attributes'] as $good_data) { ?>
+        <tr>
+            <td><?=$good_data['attribut_name']?>:</td>
+            <td>
+                <input name="attribut[<?=$good_data['attribut_id']?>]" type="text" maxlength="100">
+            </td>
+        </tr>
+        <?php } ?>
+    </table>
+    <h2>Атрибуты без типа товара</h2>
+    <table>
+        <?php foreach($data['attributes_without_type'] as $good_data) { ?>
+        <tr>
+            <td><?=$good_data['attribut_name']?>:</td>
+            <td>
+                <input name="<?=$good_data['attribut_name']?>" type="text" maxlength="100">
+            </td>
+        </tr>
+        <?php } ?>
+    </table>
+    <input name="finally-add-btn" type="submit" value="Добавить">
+</form>

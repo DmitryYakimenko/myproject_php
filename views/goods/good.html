@@ -1,0 +1,23 @@
+<h1><?=$data['good'][0]['good_name']?></h1>
+<figure>
+    <img  class="main-img" src="/img/goods/<?=App::getRouter()->getParams()[0]?>/<?=App::getRouter()->getParams()[1]?>.jpg">
+</figure>
+<p><?=$data['good'][0]['description']?></p>
+<table class="attribute">
+    <?php foreach($data['attribute'] as $good_data) { ?>
+    <tr>
+        <td><?=$good_data['attribut_name']?></td>
+        <td><?=$good_data['attribut_value']?></td>
+    </tr>
+    <?php } ?>
+<tr>
+    <td>
+        <div class="price">
+            <?=$data['good'][0]['price']?> Грн
+        </div>
+    </td>
+    <td>
+        <button>Купить</button>
+    </td>
+</tr>
+</table>

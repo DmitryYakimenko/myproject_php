@@ -1,0 +1,9 @@
+Выберите тип товара :
+<form method="post" action="/goods/add/<?=$_POST['type_name_eu']?>">
+    <select name="type_good">
+        <?php foreach($data['type_goods'] as $good_data) { ?>
+            <option value="<?=$good_data['good_type_id']?>"><?=$good_data['good_type_name']?></option>
+        <?php } ?>
+    </select>
+    <input type="submit" value="Выбрать" name="btn-go">
+</form>

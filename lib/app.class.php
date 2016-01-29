@@ -46,6 +46,12 @@ class App{
             $content['authorization'] = $view_object->render();
 
 
+            if( isset($controller_object->getData()["path"]) ){
+                if( file_exists(VIEWS_PATH.DS."{$controller_object->getData()["path"]}") ){
+                    $view_path = VIEWS_PATH.DS."{$controller_object->getData()["path"]}";
+                }
+            }
+
             $view_object = new View($controller_object->getData()["$controller_name"] , $view_path);
             $content['main_content'] = $view_object->render();
             //var_dump($controller_object->getData());die;
