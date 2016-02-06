@@ -1,4 +1,15 @@
 <div>
+    <?php
+    if( Session::get('user')['role'] === 'admin' ){
+?>
+    <div>
+        <h3><a href="/admin/users/view">Просмотреть пользователей</a></h3>
+        <h3><a href="/admin/goods">Администрирование товаров</a></h3>
+        <h3><a href="/admin/goods">Администрирование меню</a></h3>
+    </div>
+    <?php
+    }
+?>
     <p><a href="#">Просмотреть заказы</a></p>
     <p><a href="http://<?=$_SERVER['HTTP_HOST']?>/users/edit/password">Изменить пароль</a></p>
     <p><a href="http://<?=$_SERVER['HTTP_HOST']?>/users/edit/phone">Изменить телефон</a></p>

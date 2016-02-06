@@ -1,0 +1,18 @@
+<div class="select">
+    <a href="#">От дешового к дорогому</a><br/>
+    <a href="#">От дорогого к дешовому</a><br/>
+    <form method="post">
+    <?php foreach($data['attributes'] as $good_attribute) { ?>
+    <?php if( $good_attribute['attribut_name'] !== "Код производителя" ) {
+    if( isset($data['value'][$good_attribute['attribut_id']]) ){  ?>
+    <br/><h3><?=$good_attribute['attribut_name']?></h3>
+    <div class="value">
+        <?php foreach($data['value'][$good_attribute['attribut_id']] as $attribute_value) {
+        ?>
+            <input name="<?=$good_attribute['attribut_id']?>" type="radio" value="<?=$attribute_value['attribut_value']?>"> <?=$attribute_value['attribut_value']?> <br/>
+        <?php   }?>
+    </div>
+    <?php } } }?>
+        <input type="submit" name="select-btn" value="Поиск">
+    </form>
+</div>

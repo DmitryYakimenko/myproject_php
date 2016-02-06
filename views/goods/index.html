@@ -1,3 +1,13 @@
+<?php
+    if( Session::get('user')['role'] === 'admin' ){
+?>
+    <div>
+        <h3><a href="/goods/add">Добавить товар</a></h3>
+        <h3><a href="#">Добавить категорию товара</a></h3>
+    </div>
+<?php
+    }
+?>
 <?php foreach($data as $good_data) { ?>
 <div class="type" id="type">
     <div class="title">
@@ -6,5 +16,14 @@
     <figure>
         <img class="img-type" src="/img<?=$good_data['image']?>">
     </figure>
+    <?php
+    if( Session::get('user')['role'] === 'admin' ){
+?>
+    <div>
+        <h5><a href="/admin/goods/edit/<?=$good_data['type_name_eu']?>">Изменить категорию</a></h5>
+    </div>
+    <?php
+    }
+?>
 </div>
 <?php } ?>

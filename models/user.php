@@ -62,4 +62,10 @@ class User extends Model {
         return $this->db->query($sql);
     }
 
+    public function getCustomers(){
+        $sql = "SELECT * FROM customers";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
 }

@@ -1,3 +1,12 @@
+<?php
+    if( Session::get('user')['role'] === 'admin' ){
+?>
+<div>
+    <h3><a href="/admin/goods/edit/<?=App::getRouter()->getParams()[0]?>/<?=App::getRouter()->getParams()[1]?>">Изменить товар</a></h3>
+</div>
+<?php
+    }
+?>
 <h1><?=$data['good'][0]['good_name']?></h1>
 <figure>
     <img  class="main-img" src="/img/goods/<?=App::getRouter()->getParams()[0]?>/<?=App::getRouter()->getParams()[1]?>.jpg">
@@ -17,7 +26,10 @@
         </div>
     </td>
     <td>
-        <button>Купить</button>
+        <form action="/cart/add" method="post">
+            <input type="hidden" value="<?=$data['good'][0]['good_id']?>" name="id">
+            <input type="submit" value="Купить" name="addCart">
+        </form>
     </td>
 </tr>
 </table>

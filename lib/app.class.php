@@ -25,9 +25,9 @@ class App{
         $controller_name = self::$router->getController();
 
         $layout = self::$router->getRoute();
-        if ( $layout == 'admin' && Session::get('role') != 'admin' ){
+        if ( $layout == 'admin' && Session::get('user')['role'] != 'admin' ){
             if ( $controller_method != 'admin_login' ){
-                Router::redirect('/admin/users/login');
+                Router::redirect('/');
             }
         }
 
@@ -37,6 +37,8 @@ class App{
             // Controller's action may return a view path
             $view_path = $controller_object->$controller_method();
 
+            $view_object = new View(null , VIEWS_PATH.DS."cart.html");
+            $content['cart'] = $view_object->render();
 
             $view_object = new View($controller_object->getData()['menus'] , VIEWS_PATH.DS."menu.html");
             $content['menu'] = $view_object->render();
@@ -45,6 +47,11 @@ class App{
             $view_object = new View(null , VIEWS_PATH.DS."users/authorization.html");
             $content['authorization'] = $view_object->render();
 
+            if( isset($controller_object->getData()['attribute']) ){
+                $view_object = new View($controller_object->getData()['attribute'] , VIEWS_PATH.DS."select.html");
+                $content['select'] = $view_object->render();
+            }
+
 
             if( isset($controller_object->getData()["path"]) ){
                 if( file_exists(VIEWS_PATH.DS."{$controller_object->getData()["path"]}") ){
@@ -52,9 +59,10 @@ class App{
                 }
             }
 
+
             $view_object = new View($controller_object->getData()["$controller_name"] , $view_path);
             $content['main_content'] = $view_object->render();
-            //var_dump($controller_object->getData());die;
+            //echo "<pre>";var_dump($controller_object->getData());die;
 
         } else {
             throw new Exception('Method '.$controller_method.' of class '.$controller_class.' does not exist.');

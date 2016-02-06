@@ -15,7 +15,7 @@ Config::set('default_language', 'en');
 Config::set('default_controller', 'pages');
 Config::set('default_action', 'index');
 
-Config::set('db.host', 'localhost');
+Config::set('db.host', '192.168.1.38');
 Config::set('db.user', 'root');
 Config::set('db.password', '');
 Config::set('db.db_name', 'mydb');

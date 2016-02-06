@@ -41,6 +41,47 @@ class Good extends Model{
         return $result;
     }
 
+    public function getAttributeValueByAttributeId($attribute_id, $good_type_id){
+        $attribute_id = $this->db->escape($attribute_id);
+        $good_type_id = $this->db->escape($good_type_id);
+        $sql = "SELECT attribut_value FROM attributs
+                join good_attribute on good_attribute.attribut_id = attributs.attribut_id
+                join goods on good_attribute.good_id = goods.good_id
+                where good_attribute.attribut_id = {$attribute_id}
+                  and goods.good_type_id = {$good_type_id}
+                group by attribut_value";
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
+    public function getGoodByArrayAttribute($good_type_id, $array_attribute_id, $array_attribute_value){
+        $good_type_id = $this->db->escape($good_type_id);
+        $sql = "SELECT * FROM attributs
+                join good_attribute on good_attribute.attribut_id = attributs.attribut_id
+                join goods on good_attribute.good_id = goods.good_id
+                join type_goods on goods.good_type_id = type_goods.good_type_id
+                where goods.good_type_id = {$good_type_id} and (";
+        for($i = 0; $i < count($array_attribute_id); $i++){
+            if( $i >= 1 ) {
+                if( $i != count($array_attribute_id) - 1 ) {
+                    $sql .= " or
+					(good_attribute.attribut_id = {$array_attribute_id[$i]} and
+                    good_attribute.attribut_value = '{$array_attribute_value[$i]}')";
+                }else{
+                    $sql .= " or
+					(good_attribute.attribut_id = {$array_attribute_id[$i]} and
+                    good_attribute.attribut_value = '{$array_attribute_value[$i]}'))
+                    group by good_name ";
+                }
+            }else{
+                $sql .= "(good_attribute.attribut_id = {$array_attribute_id[$i]} and
+                    good_attribute.attribut_value = '{$array_attribute_value[$i]}'))";
+            }
+        }
+        $result = $this->db->query($sql);
+        return $result;
+    }
+
     public function getAttributeWithoutType(){
         $sql = "SELECT * FROM attributs
                 left join good_attribute on good_attribute.attribut_id = attributs.attribut_id
@@ -150,4 +191,23 @@ class Good extends Model{
         $result = $this->db->query($sql);
         return $result[0];
     }
+
+    public function getTypeByTypeNameEu($type_name_eu){
+        $type_name_eu = $this->db->escape($type_name_eu);
+        $sql = "SELECT * FROM type_goods where type_name_eu = '{$type_name_eu}' limit 1";
+        $result = $this->db->query($sql);
+        return $result[0];
+    }
+
+    public function getAttributeByGoodTypeIdAndGoodId($good_type_id, $good_id){
+        $good_id = $this->db->escape($good_id);
+        $good_type_id = $this->db->escape($good_type_id);
+        $sql = "SELECT * FROM attributs
+                join good_attribute on good_attribute.attribut_id = attributs.attribut_id
+                join goods on good_attribute.good_id = goods.good_id
+                where good_type_id = {$good_type_id} and goods.good_id = {$good_id}
+                group by attribut_name";
+        return $this->db->query($sql);
+    }
+
 }

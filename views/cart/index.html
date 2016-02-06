@@ -1,0 +1,18 @@
+<?php  if( empty($data) ){ ?>
+        <h1>Корзина пуста</h1>
+<?php }else{ ?>
+<?php foreach($data as $good) { ?>
+<div class="item">
+    <h1><?=$good[0]['good_name']?><br /></h1>
+    <h2><?=$good[0]['price']?> Грн<br /></h2>
+    <form method="post" action="/cart/destroy">
+        <input name="good_id" type="hidden" value="<?=$good[0]['good_id']?>">
+        <input name="del-btn" type="submit" value="Удалить товар">
+    </form>
+    <?php $allPrice+=$good[0]['price'] ?>
+</div>
+<?php }  ?>
+Всего <br />
+<h1><?=$allPrice?> ГРН</h1>
+<a href="/payment/">Оплата</a>
+<?php }  ?>

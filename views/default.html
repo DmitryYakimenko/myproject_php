@@ -10,6 +10,8 @@
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+	<script src="/js/jwplayer.js" type="text/javascript"></script>
+	<script>jwplayer.key="0JTvIBqrUKn4vjINHELjenV7QfY+Y2sGbKzqfg==";</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -23,20 +25,25 @@
 
 		<div id="heading">
 			<h1><?=strtoupper(App::getRouter()->getAction())?></h1>
+			<?=$data['content']['cart']?>
 		</div>
+
 		<aside>
 
 			<?=$data['content']['authorization']?>
 
 			<nav>
+				<?=$data['content']['select']?>
+				<?php if( !isset($data['content']['select']) ) {?>
 				<ul class="aside-menu">
 					<li class="active">LOREM IPSUM</li>
-					<li><a href="/donec/">DONEC TINCIDUNT LAOREET</a></li>
-					<li><a href="/vestibulum/">VESTIBULUM ELIT</a></li>
-					<li><a href="/etiam/">ETIAM PHARETRA</a></li>
-					<li><a href="/phasellus/">PHASELLUS PLACERAT</a></li>
-					<li><a href="/cras/">CRAS ET NISI VITAE ODIO</a></li>
+					<li><a href="#">DONEC TINCIDUNT LAOREET</a></li>
+					<li><a href="#">VESTIBULUM ELIT</a></li>
+					<li><a href="#">ETIAM PHARETRA</a></li>
+					<li><a href="#">PHASELLUS PLACERAT</a></li>
+					<li><a href="#">CRAS ET NISI VITAE ODIO</a></li>
 				</ul>
+				<?php } ?>
 			</nav>
 		</aside>
 <section>

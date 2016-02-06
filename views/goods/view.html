@@ -13,7 +13,19 @@
         <div class="price">
             <b><?=$good_data['price']?> грн</b>
         </div>
-        <input type="button" value="Купить">
+        <form action="/cart/add" method="post">
+            <input type="hidden" value="<?=$good_data['good_id']?>" name="id">
+            <input type="submit" value="Купить" name="addCart">
+        </form>
     </div>
+    <?php
+    if( Session::get('user')['role'] === 'admin' ){
+?>
+    <div>
+        <br><h5><a href="/admin/goods/edit/<?=$good_data['type_name_eu']?>/<?=$good_data['good_id']?>">Изменить товар</a></h5>
+    </div>
+    <?php
+    }
+?>
 </div>
 <?php } ?>

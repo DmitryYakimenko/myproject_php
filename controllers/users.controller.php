@@ -4,12 +4,12 @@ class UsersController extends Controller{
 
     public function __construct($data = array()){
         parent::__construct($data);
-        $this->model = new User();
+        $this->model['user'] = new User();
     }
 
     public function admin_login(){
         if ( $_POST && isset($_POST['login']) && isset($_POST['password']) ){
-            $user = $this->model->getByLogin($_POST['login']);
+            $user = $this->model['user']->getByLogin($_POST['login']);
             $hash = md5(Config::get('salt').$_POST['password']);
             if ( $user && $user['is_active'] && $hash == $user['password'] ){
                 Session::set('login', $user['login']);
@@ -70,7 +70,7 @@ class UsersController extends Controller{
     }
 
     private function check($field, $value){
-        if($this->model->get($field, $value)){
+        if($this->model['user']->get($field, $value)){
             return true;
         }else{
             return false;
@@ -98,7 +98,7 @@ class UsersController extends Controller{
             $email = $_POST['email'];
             $password = md5(Config::get('salt').$_POST['password']);
 
-            $user = $this->model->get('email', $email);
+            $user = $this->model['user']->get('email', $email);
 
             if( $user['email'] === $email && $user['password'] === $password ) {
                 /*if( $_POST['remember'] === 'on' ){
@@ -123,9 +123,9 @@ class UsersController extends Controller{
     public function edit(){
 
         switch ( App::getRouter()->getParams()[0] ){
-            case 'email': $this->data['name'] = "e-mail";break;
-            case 'password': $this->data['name'] = "пароль";$this->data['flag'] = true;break;
-            case 'phone': $this->data['name'] = "номер телефона";break;
+            case 'email': $this->data['users']['name'] = "e-mail";break;
+            case 'password': $this->data['users']['name'] = "пароль";$this->data['users']['flag'] = true;break;
+            case 'phone': $this->data['users']['name'] = "номер телефона";break;
         }
 
         if( $_POST && isset($_POST['edit_btn']) ){
@@ -144,7 +144,7 @@ class UsersController extends Controller{
                     }
                     if( !Session::hasFlash() ){
                         $user['email'] = $_POST['email'];
-                        if( $this->model->save($user, Session::get('user')['customer_id']) ){
+                        if( $this->model['user']->save($user, Session::get('user')['customer_id']) ){
                             Session::set('user', $user);
                             Router::redirect('');
                             Session::setFlash('OK');
@@ -170,7 +170,7 @@ class UsersController extends Controller{
                     }
                     if( !Session::hasFlash() ){
                         $user['phone'] = $_POST['phone'];
-                        if( $this->model->save($user, Session::get('user')['customer_id']) ){
+                        if( $this->model['user']->save($user, Session::get('user')['customer_id']) ){
                             Session::set('user', $user);
                             Router::redirect('');
                             Session::setFlash('OK');
@@ -196,7 +196,7 @@ class UsersController extends Controller{
                     if( !Session::hasFlash() ){
                         $password = md5(Config::get('salt').$_POST['password']);
                         $user['password'] = $password;
-                        if( $this->model->save($user, Session::get('user')['customer_id']) ){
+                        if( $this->model['user']->save($user, Session::get('user')['customer_id']) ){
                             Session::set('user', $user);
                             Router::redirect('');
                             Session::setFlash('OK');
@@ -213,14 +213,14 @@ class UsersController extends Controller{
 
 
     public function registration(){
-        $this->data['username'] = $_POST['username'];
+        $this->data['users']['username'] = $_POST['username'];
 
         if ( $_POST && isset($_POST['registration-btn']) ){
 
-            $this->data['username'] = $_POST['username'];
-            $this->data['surname'] = $_POST['surname'];
-            $this->data['email'] = $_POST['email'];
-            $this->data['phone'] = $_POST['phone'];
+            $this->data['users']['username'] = $_POST['username'];
+            $this->data['users']['surname'] = $_POST['surname'];
+            $this->data['users']['email'] = $_POST['email'];
+            $this->data['users']['phone'] = $_POST['phone'];
             $message = "";
 
 
@@ -248,7 +248,7 @@ class UsersController extends Controller{
             }
             $_POST['password'] = md5(Config::get('salt').$_POST['password']);
             if ( empty($message) ){
-                $this->model->save($_POST);
+                $this->model['user']->save($_POST);
                 Router::redirect('');
             }else {
                 Session::setFlash($message);
@@ -262,5 +262,9 @@ class UsersController extends Controller{
             Router::redirect();
             */
         }
+    }
+
+    public function admin_view(){
+        $this->data['users'] = $this->model['user']->getCustomers();
     }
 }
